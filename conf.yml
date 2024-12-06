@@ -3,7 +3,7 @@ info:
   identifier: "playertoolspro"
   description: "Manage the players in your minecraft server with ease."
   flags: ""
-  version: "1.0"
+  version: "1.3"
   target: "beta-2024-08"
   author: "Ahmalo"
   icon: ""
@@ -18,7 +18,7 @@ admin:
 dashboard:
   css: "root.css"
   wrapper: ""
-  components: ""
+  components: "components"
 
 data:
   directory: ""
