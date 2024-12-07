@@ -20,7 +20,6 @@ cd ..
 rm -rf "$NEW_FOLDER"
 
 echo "Got newest version!"
-sleep 3
 
 cd /home/ahmalo/docker-compose/blueprint/
 docker-compose exec panel blueprint -i servertoolspro
