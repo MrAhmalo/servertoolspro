@@ -64,7 +64,7 @@ const renderCommandsPage = () => {
   return (
     <div className={'flex flex-row'}>
       <Banner title={'Operators'} className={'bg-gray-700'} icon={<FontAwesomeIcon icon={faUserPlus} />}>
-        Execute your preconfigured commands.
+        {'Execute your preconfigured commands.'}
       </Banner>
 
       <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
@@ -74,14 +74,14 @@ const renderCommandsPage = () => {
 const renderGamemodePage = () => {
   return (
     <Banner title={'Gamemode'} className={'bg-gray-700'} icon={<FontAwesomeIcon icon={faGamepad} />}>
-      Manage the gamemode of your players.
+      {'Manage the gamemode of your players.'}
     </Banner>
   );
 };
 const renderPlayersPage = () => {
   return (
     <Banner title={'Players'} className={'bg-gray-700'} icon={<FontAwesomeIcon icon={faUserPlus} />}>
-      Manage the players on your server.
+      {'Manage the players on your server.'}
     </Banner>
   );
 };
