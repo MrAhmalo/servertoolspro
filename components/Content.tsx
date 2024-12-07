@@ -49,20 +49,6 @@ const Content = () => {
 };
 
 const renderCommandsPage = () => {
-  const handleKick = () => {
-    const uuid = '77350933-4a40-48a1-a508-26f75a645298';
-    const playerUuid = '760567ba-c80d-4304-ae08-0953c43ea4d2';
-    const reason = 'Test';
-
-    kick(uuid, playerUuid, reason)
-      .then(() => {
-        console.log('Player kicked successfully');
-      })
-      .catch((error) => {
-        console.error('Error kicking player:', error);
-      });
-  };
-
   return (
     <Banner title={'Commands'} className={'bg-gray-700'} icon={<FontAwesomeIcon icon={faTerminal} />}>
         Execute your preconfigured commands.
