@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import PageContentBlock from '@/components/elements/PageContentBlock';
 import { Button } from '@/components/elements/button/index';
 import { faGamepad, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Banner from './Banner';
 import { ServerContext } from '@/state/server';
+const {instance} = ServerContext.useStoreState((state) => state.socket);
+import Banner from './Banner';
 
 const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
 
@@ -48,10 +50,22 @@ const Content = () => {
   );
 };
 
+const sendCommand = (action) => {
+  let commandToExecute = '';
+  if (action === 'wartungsarbeiten') {
+    commandToExecute = 'tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Wartungsarbeiten","bold":true,"color":"yellow"},"\n",{"text":"Server offline für ca. 15-20 minuten","color":"white"}]';
+  }
+  if (instance) {
+    instance.send('send command', commandToExecute);
+  }
+};
+
 const renderCommandsPage = () => {
   return (
     <Banner title={'Commands'} className={'bg-gray-700'} icon={<FontAwesomeIcon icon={faTerminal} />}>
-        Execute your preconfigured commands.
+      Execute your preconfigured commands.
+
+      <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
     </Banner>
   );
 };
