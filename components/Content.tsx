@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import PageContentBlock from '@/components/elements/PageContentBlock';
 import { Button } from '@/components/elements/button/index';
+import { ServerContext } from '@/state/server';
 import { faGamepad, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ServerContext } from '@/state/server';
-const { instance } = ServerContext.useStoreState((state) => state.socket);
+import React, { useState } from 'react';
 import Banner from './Banner';
-
-const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
+const { instance } = ServerContext.useStoreState((state) => state.socket);
 
 const Content = () => {
   const [viewing, setViewing] = useState<'commands' | 'gamemode' | 'players'>('commands');
@@ -30,7 +27,6 @@ const Content = () => {
       <div className={'mb-4 flex flex-col md:flex-row md:justify-between justify-center md:items-center content-between w-full'}>
         <h1 className={'text-2xl'}>Server tools</h1>
         <div className={'flex flex-row'}>
-          <p>{uuid}</p>
           <Button.Text disabled={viewing === 'commands'} onClick={() => setViewing('commands')}>
             Commands
           </Button.Text>
