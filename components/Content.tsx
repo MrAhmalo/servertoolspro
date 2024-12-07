@@ -59,29 +59,30 @@ const sendCommand = (action: string) => {
 
 const renderCommandsPage = () => {
   return (
+    <div>
       <div className="flex flex-row">
-          <Banner title="Operators" className="bg-gray-700" icon={<FontAwesomeIcon icon={faTerminal} />}>
-              Execute your preconfigured commands.
-          </Banner>
-          
-          <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
+        <Banner title="Operators" className="bg-gray-700" icon={<FontAwesomeIcon icon={faTerminal} />}>
+          Execute your preconfigured commands.
+        </Banner>
       </div>
+      <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
+    </div>
   );
 };
 
 const renderGamemodePage = () => {
   return (
-      <Banner title="Gamemode" className="bg-gray-700" icon={<FontAwesomeIcon icon={faGamepad} />}>
-          Manage the gamemode of your players.
-      </Banner>
+    <Banner title="Gamemode" className="bg-gray-700" icon={<FontAwesomeIcon icon={faGamepad} />}>
+      Manage the gamemode of your players.
+    </Banner>
   );
 };
 
 const renderPlayersPage = () => {
   return (
-      <Banner title="Players" className="bg-gray-700" icon={<FontAwesomeIcon icon={faUserPlus} />}>
-          Manage the players on your server.
-      </Banner>
+    <Banner title="Players" className="bg-gray-700" icon={<FontAwesomeIcon icon={faUserPlus} />}>
+      Manage the players on your server.
+    </Banner>
   );
 };
 
