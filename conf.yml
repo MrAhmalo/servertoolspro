@@ -1,9 +1,9 @@
 info:
-  name: "PlayerTools Pro"
-  identifier: "playertoolspro"
-  description: "Manage the players in your minecraft server with ease."
+  name: "ServerTools Pro"
+  identifier: "servertoolspro"
+  description: "Manage your minecraft server with ease."
   flags: ""
-  version: "1.3"
+  version: "1.4"
   target: "beta-2024-08"
   author: "Ahmalo"
   icon: ""
