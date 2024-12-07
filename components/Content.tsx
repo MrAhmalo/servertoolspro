@@ -63,9 +63,7 @@ const renderCommandsPage = () => {
 
   return (
     <Banner title={'Commands'} className={'bg-gray-700'} icon={<FontAwesomeIcon icon={faTerminal} />}>
-      <div>
         Execute your preconfigured commands.
-      </div>
     </Banner>
   );
 };
