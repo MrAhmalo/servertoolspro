@@ -4,9 +4,9 @@ import { faGamepad, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-i
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import Banner from './Banner';
-const { instance } = ServerContext.useStoreState((state) => state.socket);
 
 const Content = () => {
+  const { instance } = ServerContext.useStoreState((state) => state.socket);
   const [viewing, setViewing] = useState<'commands' | 'gamemode' | 'players'>('commands');
 
   const renderPageContent = () => {
