@@ -59,8 +59,8 @@ const sendCommand = (action: string) => {
 
 const renderCommandsPage = () => {
   return (
-    <div className="mb-4">
-      <div className="flex flex-row">
+    <div>
+      <div className="flex flex-row mb-4">
         <Banner title="Operators" className="bg-gray-700" icon={<FontAwesomeIcon icon={faTerminal} />}>
           Execute your preconfigured commands.
         </Banner>
