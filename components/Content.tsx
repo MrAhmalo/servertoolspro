@@ -29,7 +29,6 @@ const Content = () => {
       <div className={'mb-4 flex flex-col md:flex-row md:justify-between justify-center md:items-center content-between w-full'}>
         <h1 className={'text-2xl'}>Server tools</h1>
         <div className={'flex flex-row'}>
-          <p>{uuid}</p>
           <Button.Text disabled={viewing === 'commands'} onClick={() => setViewing('commands')}>
             Commands
           </Button.Text>
