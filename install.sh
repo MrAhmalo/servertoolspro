@@ -2,26 +2,25 @@
 
 set -e
 
-cd /home/ahmalo/docker-compose/blueprint/extensions
-rm -f servertoolspro.blueprint
-
-NEW_FOLDER="tempfolder"
 REPO_URL="https://github.com/MrAhmalo/servertoolspro.git"
 ZIP_NAME="servertoolspro.blueprint"
+NEW_FOLDER="servertoolspro"
 
-mkdir -p "$NEW_FOLDER"
-git clone "$REPO_URL" "$NEW_FOLDER"
+cd /home/ahmalo/docker-compose/blueprint/extensions
+rm -rf servertoolspro
+rm -rf servertoolspro.blueprint
+
+git clone "$REPO_URL"
 
 cd "$NEW_FOLDER"
 rm -rf install.sh
+zip -r "../$ZIP_NAME" ./*
 cd ..
-
-zip -r "$ZIP_NAME" "$NEW_FOLDER"
 
 rm -rf "$NEW_FOLDER"
 
 echo "Got newest version!"
+sleep 3
 
-docker-compose exec panel sh
-
-blueprint -i servertoolspro
+cd /home/ahmalo/docker-compose/blueprint/
+docker-compose exec panel blueprint -i servertoolspro
