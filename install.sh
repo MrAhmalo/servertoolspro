@@ -2,7 +2,7 @@
 
 set -e
 
-cd /home/docker-compose/blueprint/extensions
+cd /home/ahmalo/docker-compose/blueprint/extensions
 rm -f servertoolspro.blueprint
 
 NEW_FOLDER="tempfolder"
