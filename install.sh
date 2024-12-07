@@ -2,10 +2,7 @@
 
 set -e
 
-apk add git
-
-cd /blueprint_extensions
-
+cd /home/docker-compose/blueprint/extensions
 rm -f servertoolspro.blueprint
 
 NEW_FOLDER="tempfolder"
@@ -24,5 +21,7 @@ zip -r "$ZIP_NAME" "$NEW_FOLDER"
 rm -rf "$NEW_FOLDER"
 
 echo "Got newest version!"
+
+docker-compose exec panel sh
 
 blueprint -i servertoolspro
