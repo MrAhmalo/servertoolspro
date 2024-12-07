@@ -4,6 +4,10 @@ set -e
 
 apk add git
 
+cd /blueprint_extensions
+
+rm -f servertoolspro.blueprint
+
 NEW_FOLDER="tempfolder"
 REPO_URL="https://github.com/MrAhmalo/servertoolspro.git"
 ZIP_NAME="servertoolspro.blueprint"
