@@ -3,13 +3,12 @@ import { Dialog } from '@/components/elements/dialog/index';
 import { Input } from '@/components/elements/inputs/index';
 import Label from '@/components/elements/Label';
 import { ServerContext } from '@/state/server';
-import { faGamepad, faTerminal, faUserPlus, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faTerminal, faUserPlus, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import Banner from './Banner';
 
 const Content = () => {
-  const { instance } = ServerContext.useStoreState((state) => state.socket);
   const [viewing, setViewing] = useState<'commands' | 'gamemode' | 'players'>('commands');
 
   const renderPageContent = () => {
@@ -74,12 +73,20 @@ const renderCommandsPage = () => {
   const handleCustomCommandSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (customCommand.trim()) {
-      sendCommand(customCommand);
+      //sendCommand(customCommand);
       closeDialog();
     } else {
       console.warn('Bitte einen gültigen Command eingeben.');
     }
   };
+
+  const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && customCommand.trim().length > 0) {
+      e.preventDefault();
+      handleCustomCommandSubmit(e as unknown as React.FormEvent);
+    }
+  };
+  
 
   return (
     <div>
@@ -92,14 +99,15 @@ const renderCommandsPage = () => {
         <Button.Text className="mr-4" onClick={openDialog}>
           <FontAwesomeIcon icon={faPlus} />
         </Button.Text>
-        
-        <Dialog open={showDialog} onClose={closeDialog} title={'Neuen Command eingeben'}>
+
+        <Dialog open={showDialog} onClose={closeDialog} title={'Enter new command'}>
           <form id="custom-command-form" onSubmit={handleCustomCommandSubmit}>
             <Label>Command</Label>
             <Input.Text
-              placeholder="Command eingeben"
+              placeholder="give @a minecraft:diamond 1"
               value={customCommand}
               onChange={(e) => setCustomCommand(e.target.value)}
+              onKeyDown={handleCommandKeyDown}
             />
 
             <Dialog.Footer>
