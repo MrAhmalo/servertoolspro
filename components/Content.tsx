@@ -26,13 +26,14 @@ const Content = () => {
   const [customCommand, setCustomCommand] = useState('');
   const [customCommands, setCustomCommands] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const server = ServerContext.useStoreState((state) => state.server.data!);
+  const uuid = ServerContext.useStoreState((state) => state.server.data?.uuid);
 
   // Load commands when component mounts
   useEffect(() => {
     const loadCommands = async () => {
+      if (!uuid) return;
       try {
-        const response = await getServerVariable(server.uuid, 'custom_commands');
+        const response = await getServerVariable(uuid, 'custom_commands');
         if (response.data) {
           setCustomCommands(JSON.parse(response.data));
         }
@@ -42,7 +43,7 @@ const Content = () => {
     };
     
     loadCommands();
-  }, [server.uuid]);
+  }, [uuid]);
 
   // If functions
   // Loading spinner
@@ -74,10 +75,11 @@ const Content = () => {
 
     const handleCustomCommandSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
+      if (!uuid) return;
       const updatedCommands = [...customCommands, customCommand];
       
       try {
-        await setServerVariable(server.uuid, 'custom_commands', JSON.stringify(updatedCommands));
+        await setServerVariable(uuid, 'custom_commands', JSON.stringify(updatedCommands));
         setCustomCommands(updatedCommands);
         setCustomCommand('');
         closeDialog();
