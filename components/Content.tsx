@@ -3,7 +3,7 @@ import { Dialog } from '@/components/elements/dialog/index';
 import { Input } from '@/components/elements/inputs/index';
 import Label from '@/components/elements/Label';
 import { ServerContext } from '@/state/server';
-import { faPlus, faTerminal } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import Banner from './Banner';
@@ -39,7 +39,7 @@ const Content = () => {
     const handleCustomCommandSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       if (customCommand.trim()) {
-        sendCommand(customCommand, instance);
+        sendCommand(customCommand);
         closeDialog();
       } else {
         console.warn('Please enter a valid command.');
@@ -89,7 +89,7 @@ const Content = () => {
             </form>
           </Dialog>
   
-          <Button.Text onClick={() => sendCommand('wartungsarbeiten', instance)}>Wartungsarbeiten</Button.Text>
+          <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
         </div>
       </div>
     );
