@@ -6,7 +6,7 @@ import Label from '@/components/elements/Label';
 import { ServerContext } from '@/state/server';
 import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
 
 function delay(ms : number) {
@@ -26,6 +26,13 @@ const Content = () => {
 
   // If functions
   // Loading spinner
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+        setIsLoading(false);
+    }, 0);
+
+    return () => clearTimeout(timeout);
+}, [viewing]);
   if (isLoading === true) {
     return <Spinner size={'large'} centered />;
   }
@@ -40,9 +47,6 @@ const Content = () => {
 
   // commandsPage
   const renderCommandsPage = () => {
-    // Disable loading spinner
-    setIsLoading(false)
-
     // commandsPage functions
     // open/close create command dialog
     const openDialog = () => setShowDialog(true);
@@ -172,9 +176,6 @@ const Content = () => {
   };
 
   const renderGamemodePage = () => {
-    // Disable loading spinner
-    setIsLoading(false)
-
     return (
       <Banner title="Gamemode" className="bg-gray-700" icon={<FontAwesomeIcon icon={faGamepad} />}>
         Manage the gamemode of your players.
@@ -183,9 +184,6 @@ const Content = () => {
   };
   
   const renderPlayersPage = () => {
-    // Disable loading spinner
-    setIsLoading(false)
-    
     return (
       <Banner title="Players" className="bg-gray-700" icon={<FontAwesomeIcon icon={faUserPlus} />}>
         Manage the players on your server.
