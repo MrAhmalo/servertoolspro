@@ -144,11 +144,11 @@ const Content = () => {
           </Dialog>
   
           <Button.Text onClick={() => restart1Command()} className="mr-2">Restart</Button.Text>
-          <Button.Text onClick={() => maintance1Command()} className="mr-1">Maintance</Button.Text>
-          <Button.Text onClick={() => maintance5Command()} className="mr-1">Maintance (5m)</Button.Text>
-          <Button.Text onClick={() => maintance10Command()} className="mr-1">Maintance (10m)</Button.Text>
-          <Button.Text onClick={() => maintance30Command()} className="mr-1">Maintance (30m)</Button.Text>
-          <Button.Text onClick={() => maintance60Command()} className="mr-1">Maintance (1h)</Button.Text>
+          <Button.Text onClick={() => maintance1Command()} className="mr-2">Maintance</Button.Text>
+          <Button.Text onClick={() => maintance5Command()} className="mr-2">Maintance (5m)</Button.Text>
+          <Button.Text onClick={() => maintance10Command()} className="mr-2">Maintance (10m)</Button.Text>
+          <Button.Text onClick={() => maintance30Command()} className="mr-2">Maintance (30m)</Button.Text>
+          <Button.Text onClick={() => maintance60Command()} className="mr-2">Maintance (1h)</Button.Text>
         </div>
       </div>
     );
