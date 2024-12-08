@@ -1,4 +1,7 @@
 import { Button } from '@/components/elements/button/index';
+import { Dialog } from '@/components/elements/dialog/index';
+import { Input } from '@/components/elements/inputs/index';
+import Label from '@/components/elements/Label';
 import { ServerContext } from '@/state/server';
 import { faGamepad, faTerminal, faUserPlus, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -59,19 +62,20 @@ const sendCommand = (action: string) => {
 };
 
 const renderCommandsPage = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [customCommand, setCustomCommand] = useState('');
-  const openModal = () => {
-    setShowModal(true);
-  };
-  const closeModal = () => {
+
+  const openDialog = () => setShowDialog(true);
+  const closeDialog = () => {
     setCustomCommand('');
-    setShowModal(false);
+    setShowDialog(false);
   };
-  const handleCustomCommandSubmit = () => {
+
+  const handleCustomCommandSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (customCommand.trim()) {
       sendCommand(customCommand);
-      closeModal();
+      closeDialog();
     } else {
       console.warn('Bitte einen gültigen Command eingeben.');
     }
@@ -84,36 +88,33 @@ const renderCommandsPage = () => {
           Execute your preconfigured commands.
         </Banner>
       </div>
-      <div className="flex flex-row mb-4">
-        <Button.Text className="ml-2" onClick={openModal}>
+      <div className="flex flex-row mt-4">
+        <Button.Text className="mr-4" onClick={openDialog}>
           <FontAwesomeIcon icon={faPlus} />
         </Button.Text>
-        {showModal && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-md shadow-lg p-6 w-96">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Neuen Command eingeben</h2>
-              <button onClick={closeModal}>
-                <FontAwesomeIcon icon={faTimes} className="text-gray-500 hover:text-gray-800" />
-              </button>
-            </div>
-            <input
-              type="text"
+        
+        <Dialog open={showDialog} onClose={closeDialog} title={'Neuen Command eingeben'}>
+          <form id="custom-command-form" onSubmit={handleCustomCommandSubmit}>
+            <Label>Command</Label>
+            <Input.Text
+              placeholder="Command eingeben"
               value={customCommand}
               onChange={(e) => setCustomCommand(e.target.value)}
-              placeholder="Command eingeben"
-              className="w-full p-2 border border-gray-300 rounded-md mb-4"
             />
-            <button
-              onClick={handleCustomCommandSubmit}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-            >
-              Command senden
-            </button>
-          </div>
-        </div>
-      )}
-        
+
+            <Dialog.Footer>
+              <Button.Text onClick={closeDialog}>Cancel</Button.Text>
+              <Button
+                disabled={customCommand.trim().length === 0}
+                type="submit"
+                form="custom-command-form"
+              >
+                Command senden
+              </Button>
+            </Dialog.Footer>
+          </form>
+        </Dialog>
+
         <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
       </div>
     </div>
