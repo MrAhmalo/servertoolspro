@@ -2,7 +2,7 @@ import { Button } from '@/components/elements/button/index';
 import { Dialog } from '@/components/elements/dialog/index';
 import { Input } from '@/components/elements/inputs/index';
 import Label from '@/components/elements/Label';
-import ServerContext from '@/state/server';
+import { ServerContext } from '@/state/server';
 import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
