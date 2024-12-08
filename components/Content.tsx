@@ -1,6 +1,7 @@
 import { Button } from '@/components/elements/button/index';
 import { Dialog } from '@/components/elements/dialog/index';
 import { Input } from '@/components/elements/inputs/index';
+import Spinner from '@/components/elements/Spinner';
 import Label from '@/components/elements/Label';
 import { ServerContext } from '@/state/server';
 import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +22,13 @@ const Content = () => {
   const { instance } = ServerContext.useStoreState((state) => state.socket);
   const [showDialog, setShowDialog] = useState(false);
   const [customCommand, setCustomCommand] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // If functions
+  // Loading spinner
+  if (isLoading === true) {
+    return <Spinner size={'large'} centered />;
+  }
 
   // Global functions
   const sendCommand = (action: string) => {
@@ -57,10 +65,12 @@ const Content = () => {
     
     // commands
     const restart1Command = async () => {
+      setIsLoading(true);
       sendCommand('tellraw @a ["","Server restarts in ",{"text":"1 minute","color":"green"}]')
       sendCommand('execute at @a as @a run playsound minecraft:block.note_block.pling master @s')
       await delay(60 * 1000);
       sendCommand('restart');
+      setIsLoading(false);
     };
     const maintance1Command = async () => {
       sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')

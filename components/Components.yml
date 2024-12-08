@@ -9,7 +9,7 @@ Navigation:
     AdditionalAccountItems: ""
     AfterSubNavigation: ""
   Routes:
-    - { Name: "Tools", Path: "/tools", Type: "server", Component: "PlayerComponent" }
+    - { Name: "Tools", Path: "/tools", Type: "server", Component: "PlayerComponent", Permission: "'control.console'"}
 
 Dashboard:
   Global:
