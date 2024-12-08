@@ -1,12 +1,12 @@
 import { Button } from '@/components/elements/button/index';
 import { Dialog } from '@/components/elements/dialog/index';
 import { Input } from '@/components/elements/inputs/index';
-import Spinner from '@/components/elements/Spinner';
 import Label from '@/components/elements/Label';
+import Spinner from '@/components/elements/Spinner';
 import { ServerContext } from '@/state/server';
 import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from './Banner';
 
 function delay(ms : number) {
@@ -24,6 +24,17 @@ const Content = () => {
   const [customCommand, setCustomCommand] = useState('');
   const [customCommands, setCustomCommands] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const server = ServerContext.useStoreState((state) => state.server.data!);
+
+  // Load commands when component mounts
+  useEffect(() => {
+    if (server && server.meta) {
+      const savedCommands = server.meta.customCommands;
+      if (savedCommands) {
+        setCustomCommands(JSON.parse(savedCommands));
+      }
+    }
+  }, [server]);
 
   // If functions
   // Loading spinner
@@ -55,7 +66,14 @@ const Content = () => {
 
     const handleCustomCommandSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      setCustomCommands([...customCommands, customCommand]);
+      const updatedCommands = [...customCommands, customCommand];
+      setCustomCommands(updatedCommands);
+      
+      // Save to server meta
+      if (server) {
+        server.meta.customCommands = JSON.stringify(updatedCommands);
+      }
+      
       setCustomCommand('');
       closeDialog();
     };
