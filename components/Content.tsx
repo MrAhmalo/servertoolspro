@@ -32,10 +32,10 @@ const Content = () => {
           <Button.Text disabled={viewing === 'commands'} onClick={() => setViewing('commands')}>
             Commands
           </Button.Text>
-          <Button.Text disabled={viewing === 'gamemode'} onClick={() => setViewing('gamemode')} className={'ml-4'}>
+          <Button.Text disabled={viewing === 'gamemode'} onClick={() => setViewing('gamemode')} className={'ml-2'}>
             Gamemode
           </Button.Text>
-          <Button.Text disabled={viewing === 'players'} onClick={() => setViewing('players')} className={'ml-4'}>
+          <Button.Text disabled={viewing === 'players'} onClick={() => setViewing('players')} className={'ml-2'}>
             Players
           </Button.Text>
         </div>
@@ -95,8 +95,8 @@ const renderCommandsPage = () => {
           Execute your preconfigured commands.
         </Banner>
       </div>
-      <div className="flex flex-row mt-4">
-        <Button.Text className="mr-4" onClick={openDialog}>
+      <div className="flex flex-row mt-2">
+        <Button.Text className="mr-2" onClick={openDialog}>
           <FontAwesomeIcon icon={faPlus} />
         </Button.Text>
 
