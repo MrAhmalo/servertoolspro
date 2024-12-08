@@ -8,12 +8,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import Banner from './Banner';
 
+function delay(ms : number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  })
+}
+
+// Main
 const Content = () => {
+  // Global variables
   const [viewing, setViewing] = useState<'commands' | 'gamemode' | 'players'>('commands');
   const { instance } = ServerContext.useStoreState((state) => state.socket);
   const [showDialog, setShowDialog] = useState(false);
   const [customCommand, setCustomCommand] = useState('');
 
+  // Global functions
   const sendCommand = (action: string) => {
     if (instance) {
       console.log('Sending command', action);
@@ -21,13 +30,15 @@ const Content = () => {
     }
   };
 
+  // commandsPage
   const renderCommandsPage = () => {
+    // commandsPage functions
+    // open/close create command dialog
     const openDialog = () => setShowDialog(true);
     const closeDialog = () => {
       setCustomCommand('');
       setShowDialog(false);
     };
-  
     const handleCustomCommandSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       if (customCommand.trim()) {
@@ -37,7 +48,6 @@ const Content = () => {
         console.warn('Please enter a valid command.');
       }
     };
-  
     const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && customCommand.trim().length > 0) {
         e.preventDefault();
@@ -45,12 +55,64 @@ const Content = () => {
       }
     };
     
+    // commands
+    const restart1Command = async () => {
+      sendCommand('tellraw @a ["","Server restarts in ",{"text":"1 minute","color":"green"}]')
+      await delay(60 * 1000);
+      sendCommand('stop');
+    };
+    const maintance1Command = async () => {
+      sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
+      await delay(60 * 1000);
+      sendCommand('stop');
+    };
+    const maintance5Command = async () => {
+      sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"5 minutes","color":"green"}]')
+      await delay(240 * 1000);
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
+      await delay(60 * 1000);
+      sendCommand('stop');
+    };
+    const maintance10Command = async () => {
+      sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"10 minutes","color":"green"}]')
+      await delay(300 * 1000);
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"5 minutes","color":"green"}]')
+      await delay(240 * 1000);
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
+      await delay(60 * 1000);
+      sendCommand('stop');
+    };
+    const maintance30Command = async () => {
+      sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"30 minutes","color":"green"}]')
+      await delay(900 * 1000);
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"15 minutes","color":"green"}]')
+      await delay(840 * 1000);
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
+      await delay(60 * 1000);
+      sendCommand('stop');
+    };
+    const maintance60Command = async () => {
+      sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"60 minutes","color":"green"}]')
+      await delay(1800 * 1000);
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"30 minutes","color":"green"}]')
+      await delay(1740 * 1000);
+      sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
+      await delay(60 * 1000);
+      sendCommand('stop');
+    };
   
     return (
       <div>
         <div>
           <Banner title="Operators" className="bg-gray-700" icon={<FontAwesomeIcon icon={faTerminal} />}>
-            Execute your preconfigured commands.
+            Execute your preconfigured commands. <br></br>
+            Maintance commands: broadcasts a warning message and shutdowns the server after the given time. <br></br>
+            Restart commands: broadcasts a warning message and restarts the server after the given time.
           </Banner>
         </div>
         <div className="flex flex-row mt-4">
@@ -81,7 +143,12 @@ const Content = () => {
             </form>
           </Dialog>
   
-          <Button.Text onClick={() => sendCommand('tellraw @p ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Wartungsarbeiten","bold":true,"color":"yellow"},"\\n",{"text":"Server offline für ca. 15-20 minuten","color":"white"}]')}>Maintance</Button.Text>
+          <Button.Text onClick={() => restart1Command()}>Restart (1 minute)</Button.Text>
+          <Button.Text onClick={() => maintance1Command()}>Maintance (1 minute)</Button.Text>
+          <Button.Text onClick={() => maintance5Command()}>Maintance (5 minutes)</Button.Text>
+          <Button.Text onClick={() => maintance10Command()}>Maintance (10 minutes)</Button.Text>
+          <Button.Text onClick={() => maintance30Command()}>Maintance (30 minutes)</Button.Text>
+          <Button.Text onClick={() => maintance60Command()}>Maintance (1 hour)</Button.Text>
         </div>
       </div>
     );
