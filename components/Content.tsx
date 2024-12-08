@@ -8,6 +8,8 @@ import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import Banner from './Banner';
+import getServerVariable from '@/api/server/getServerVariable';
+import setServerVariable from '@/api/server/setServerVariable';
 
 function delay(ms : number) {
   return new Promise((resolve) => {
@@ -28,13 +30,19 @@ const Content = () => {
 
   // Load commands when component mounts
   useEffect(() => {
-    if (server && server.meta) {
-      const savedCommands = server.meta.customCommands;
-      if (savedCommands) {
-        setCustomCommands(JSON.parse(savedCommands));
+    const loadCommands = async () => {
+      try {
+        const response = await getServerVariable(server.uuid, 'custom_commands');
+        if (response.data) {
+          setCustomCommands(JSON.parse(response.data));
+        }
+      } catch (error) {
+        console.error('Failed to load custom commands:', error);
       }
-    }
-  }, [server]);
+    };
+    
+    loadCommands();
+  }, [server.uuid]);
 
   // If functions
   // Loading spinner
@@ -64,18 +72,19 @@ const Content = () => {
     const openDialog = () => setShowDialog(true);
     const closeDialog = () => setShowDialog(false);
 
-    const handleCustomCommandSubmit = (e: React.FormEvent) => {
+    const handleCustomCommandSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       const updatedCommands = [...customCommands, customCommand];
-      setCustomCommands(updatedCommands);
       
-      // Save to server meta
-      if (server) {
-        server.meta.customCommands = JSON.stringify(updatedCommands);
+      try {
+        await setServerVariable(server.uuid, 'custom_commands', JSON.stringify(updatedCommands));
+        setCustomCommands(updatedCommands);
+        setCustomCommand('');
+        closeDialog();
+      } catch (error) {
+        console.error('Failed to save custom command:', error);
+        // Optionally add error handling UI here
       }
-      
-      setCustomCommand('');
-      closeDialog();
     };
     const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && customCommand.trim().length > 0) {
