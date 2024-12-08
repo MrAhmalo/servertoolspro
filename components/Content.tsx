@@ -40,6 +40,9 @@ const Content = () => {
 
   // commandsPage
   const renderCommandsPage = () => {
+    // Disable loading spinner
+    setIsLoading(true)
+
     // commandsPage functions
     // open/close create command dialog
     const openDialog = () => setShowDialog(true);
@@ -65,12 +68,10 @@ const Content = () => {
     
     // commands
     const restart1Command = async () => {
-      setIsLoading(true);
       sendCommand('tellraw @a ["","Server restarts in ",{"text":"1 minute","color":"green"}]')
       sendCommand('execute at @a as @a run playsound minecraft:block.note_block.pling master @s')
       await delay(60 * 1000);
       sendCommand('restart');
-      setIsLoading(false);
     };
     const maintance1Command = async () => {
       sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')
@@ -171,6 +172,9 @@ const Content = () => {
   };
 
   const renderGamemodePage = () => {
+    // Disable loading spinner
+    setIsLoading(true)
+
     return (
       <Banner title="Gamemode" className="bg-gray-700" icon={<FontAwesomeIcon icon={faGamepad} />}>
         Manage the gamemode of your players.
@@ -179,6 +183,9 @@ const Content = () => {
   };
   
   const renderPlayersPage = () => {
+    // Disable loading spinner
+    setIsLoading(true)
+    
     return (
       <Banner title="Players" className="bg-gray-700" icon={<FontAwesomeIcon icon={faUserPlus} />}>
         Manage the players on your server.
@@ -204,13 +211,13 @@ const Content = () => {
       <div className={'mb-4 flex flex-col md:flex-row md:justify-between justify-center md:items-center content-between w-full'}>
         <h1 className={'text-2xl'}>Server tools</h1>
         <div className={'flex flex-row'}>
-          <Button.Text disabled={viewing === 'commands'} onClick={() => setViewing('commands')}>
+          <Button.Text disabled={viewing === 'commands'} onClick={() => { setViewing('commands'); setIsLoading(true); }}>
             Commands
           </Button.Text>
-          <Button.Text disabled={viewing === 'gamemode'} onClick={() => setViewing('gamemode')} className={'ml-2'}>
+          <Button.Text disabled={viewing === 'gamemode'} onClick={() => { setViewing('gamemode'); setIsLoading(true); }} className={'ml-2'}>
             Gamemode
           </Button.Text>
-          <Button.Text disabled={viewing === 'players'} onClick={() => setViewing('players')} className={'ml-2'}>
+          <Button.Text disabled={viewing === 'players'} onClick={() => { setViewing('players'); setIsLoading(true); }} className={'ml-2'}>
             Players
           </Button.Text>
         </div>
