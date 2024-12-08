@@ -114,7 +114,7 @@ const Content = () => {
   const renderPageContent = () => {
     switch (viewing) {
       case 'commands':
-        return renderCommandsPage(instance, showDialog, setShowDialog, customCommand, setCustomCommand);
+        return renderCommandsPage();
       case 'gamemode':
         return renderGamemodePage();
       case 'players':
