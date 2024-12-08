@@ -8,8 +8,8 @@ import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import Banner from './Banner';
-import getServerVariable from '@/api/server/getServerVariable';
-import setServerVariable from '@/api/server/setServerVariable';
+import { getServerVariable } from './api/getServerVariable';
+import { setServerVariable } from './api/setServerVariable';
 
 function delay(ms : number) {
   return new Promise((resolve) => {
