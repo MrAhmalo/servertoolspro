@@ -4,7 +4,7 @@ import Content from '@/blueprint/extensions/{identifier}/Content';
 
 const ExampleComponent = () => {
   return (
-    <PageContentBlock title={'Players'}>
+    <PageContentBlock title={'Tools'}>
       <>
         <Content/>
       </>
