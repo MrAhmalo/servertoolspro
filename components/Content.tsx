@@ -15,17 +15,9 @@ const Content = () => {
   const [customCommand, setCustomCommand] = useState('');
 
   const sendCommand = (action: string) => {
-    let commandToExecute = '';
-    
-    if (action === 'wartungsarbeiten') {
-      commandToExecute = 'tellraw @p ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Wartungsarbeiten","bold":true,"color":"yellow"},"\\n",{"text":"Server offline für ca. 15-20 minuten","color":"white"}]';
-    } else {
-      commandToExecute = action;
-    }
-  
     if (instance) {
-      console.log('Sending command', commandToExecute);
-      instance.send('send command', commandToExecute);
+      console.log('Sending command', action);
+      instance.send('send command', action);
     }
   };
 
@@ -89,7 +81,7 @@ const Content = () => {
             </form>
           </Dialog>
   
-          <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
+          <Button.Text onClick={() => sendCommand('tellraw @p ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Wartungsarbeiten","bold":true,"color":"yellow"},"\\n",{"text":"Server offline für ca. 15-20 minuten","color":"white"}]')}>Maintance</Button.Text>
         </div>
       </div>
     );
