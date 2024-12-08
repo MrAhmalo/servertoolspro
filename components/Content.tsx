@@ -2,19 +2,20 @@ import { Button } from '@/components/elements/button/index';
 import { Dialog } from '@/components/elements/dialog/index';
 import { Input } from '@/components/elements/inputs/index';
 import Label from '@/components/elements/Label';
-import { ServerContext } from '@/state/server';
-import { faGamepad, faTerminal, faUserPlus, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import ServerContext from '@/state/server';
+import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import Banner from './Banner';
 
 const Content = () => {
   const [viewing, setViewing] = useState<'commands' | 'gamemode' | 'players'>('commands');
+  const { instance } = ServerContext.useStoreState((state) => state.socket);
 
   const renderPageContent = () => {
     switch (viewing) {
       case 'commands':
-        return renderCommandsPage();
+        return renderCommandsPage(instance);
       case 'gamemode':
         return renderGamemodePage();
       case 'players':
@@ -48,8 +49,7 @@ const Content = () => {
   );
 };
 
-const sendCommand = (action: string) => {
-  const { instance } = ServerContext.useStoreState((state) => state.socket);
+const sendCommand = (action: string, instance : any) => {
   let commandToExecute = '';
   if (action === 'wartungsarbeiten') {
     commandToExecute = 'tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Wartungsarbeiten","bold":true,"color":"yellow"},"\n",{"text":"Server offline für ca. 15-20 minuten","color":"white"}]';
@@ -60,7 +60,7 @@ const sendCommand = (action: string) => {
   }
 };
 
-const renderCommandsPage = () => {
+const renderCommandsPage = (instance : any) => {
   const [showDialog, setShowDialog] = useState(false);
   const [customCommand, setCustomCommand] = useState('');
 
@@ -123,7 +123,7 @@ const renderCommandsPage = () => {
           </form>
         </Dialog>
 
-        <Button.Text onClick={() => sendCommand('wartungsarbeiten')}>Wartungsarbeiten</Button.Text>
+        <Button.Text onClick={() => sendCommand('wartungsarbeiten', instance)}>Wartungsarbeiten</Button.Text>
       </div>
     </div>
   );
