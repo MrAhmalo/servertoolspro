@@ -14,6 +14,7 @@ git clone "$REPO_URL"
 
 cd "$NEW_FOLDER"
 rm -rf install.sh
+rm -rf readme.md
 zip -r "../$ZIP_NAME" ./*
 cd ..
 
