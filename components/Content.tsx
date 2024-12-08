@@ -32,10 +32,10 @@ const Content = () => {
           <Button.Text disabled={viewing === 'commands'} onClick={() => setViewing('commands')}>
             Commands
           </Button.Text>
-          <Button.Text disabled={viewing === 'gamemode'} onClick={() => setViewing('gamemode')} className={'ml-2'}>
+          <Button.Text disabled={viewing === 'gamemode'} onClick={() => setViewing('gamemode')} className={'ml-4'}>
             Gamemode
           </Button.Text>
-          <Button.Text disabled={viewing === 'players'} onClick={() => setViewing('players')} className={'ml-2'}>
+          <Button.Text disabled={viewing === 'players'} onClick={() => setViewing('players')} className={'ml-4'}>
             Players
           </Button.Text>
         </div>
@@ -76,7 +76,7 @@ const renderCommandsPage = () => {
       //sendCommand(customCommand);
       closeDialog();
     } else {
-      console.warn('Bitte einen gültigen Command eingeben.');
+      console.warn('Please enter a valid command.');
     }
   };
 
