@@ -143,12 +143,12 @@ const Content = () => {
             </form>
           </Dialog>
   
-          <Button.Text onClick={() => restart1Command()}>Restart (1 minute)</Button.Text>
-          <Button.Text onClick={() => maintance1Command()}>Maintance (1 minute)</Button.Text>
-          <Button.Text onClick={() => maintance5Command()}>Maintance (5 minutes)</Button.Text>
-          <Button.Text onClick={() => maintance10Command()}>Maintance (10 minutes)</Button.Text>
-          <Button.Text onClick={() => maintance30Command()}>Maintance (30 minutes)</Button.Text>
-          <Button.Text onClick={() => maintance60Command()}>Maintance (1 hour)</Button.Text>
+          <Button.Text onClick={() => restart1Command()}>Restart</Button.Text>
+          <Button.Text onClick={() => maintance1Command()}>Maintance</Button.Text>
+          <Button.Text onClick={() => maintance5Command()}>Maintance (5m)</Button.Text>
+          <Button.Text onClick={() => maintance10Command()}>Maintance (10m)</Button.Text>
+          <Button.Text onClick={() => maintance30Command()}>Maintance (30m)</Button.Text>
+          <Button.Text onClick={() => maintance60Command()}>Maintance (1h)</Button.Text>
         </div>
       </div>
     );
