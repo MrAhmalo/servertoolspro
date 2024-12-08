@@ -41,7 +41,7 @@ const Content = () => {
   // commandsPage
   const renderCommandsPage = () => {
     // Disable loading spinner
-    setIsLoading(true)
+    setIsLoading(false)
 
     // commandsPage functions
     // open/close create command dialog
@@ -173,7 +173,7 @@ const Content = () => {
 
   const renderGamemodePage = () => {
     // Disable loading spinner
-    setIsLoading(true)
+    setIsLoading(false)
 
     return (
       <Banner title="Gamemode" className="bg-gray-700" icon={<FontAwesomeIcon icon={faGamepad} />}>
@@ -184,7 +184,7 @@ const Content = () => {
   
   const renderPlayersPage = () => {
     // Disable loading spinner
-    setIsLoading(true)
+    setIsLoading(false)
     
     return (
       <Banner title="Players" className="bg-gray-700" icon={<FontAwesomeIcon icon={faUserPlus} />}>
