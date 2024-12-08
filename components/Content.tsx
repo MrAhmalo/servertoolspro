@@ -22,6 +22,7 @@ const Content = () => {
   const { instance } = ServerContext.useStoreState((state) => state.socket);
   const [showDialog, setShowDialog] = useState(false);
   const [customCommand, setCustomCommand] = useState('');
+  const [customCommands, setCustomCommands] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   // If functions
@@ -50,18 +51,13 @@ const Content = () => {
     // commandsPage functions
     // open/close create command dialog
     const openDialog = () => setShowDialog(true);
-    const closeDialog = () => {
-      setCustomCommand('');
-      setShowDialog(false);
-    };
+    const closeDialog = () => setShowDialog(false);
+
     const handleCustomCommandSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      if (customCommand.trim()) {
-        sendCommand(customCommand);
-        closeDialog();
-      } else {
-        console.warn('Please enter a valid command.');
-      }
+      setCustomCommands([...customCommands, customCommand]);
+      setCustomCommand('');
+      closeDialog();
     };
     const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && customCommand.trim().length > 0) {
@@ -148,7 +144,7 @@ const Content = () => {
                 placeholder="give @a minecraft:diamond 1"
                 value={customCommand}
                 onChange={(e) => setCustomCommand(e.target.value)}
-                onKeyDown={handleCommandKeyDown}
+                onKeyDown={(e) => e.key === 'Enter' && handleCustomCommandSubmit(e)}
               />
   
               <Dialog.Footer>
@@ -163,6 +159,12 @@ const Content = () => {
               </Dialog.Footer>
             </form>
           </Dialog>
+
+          {customCommands.map((command, index) => (
+          <Button.Text key={index} onClick={() => sendCommand(command)} className="mr-2">
+            {`Custom Command ${index + 1}`}
+          </Button.Text>
+        ))}
   
           <Button.Text onClick={() => restart1Command()} className="mr-2">Restart</Button.Text>
           <Button.Text onClick={() => maintance1Command()} className="mr-2">Maintance</Button.Text>
