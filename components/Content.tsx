@@ -58,14 +58,14 @@ const Content = () => {
     // commands
     const restart1Command = async () => {
       sendCommand('tellraw @a ["","Server restarts in ",{"text":"1 minute","color":"green"}]')
-      sendCommand('playsound minecraft:block.note_block.pling master @a')
+      sendCommand('execute at @a as @a run playsound minecraft:block.note_block.pling master @s')
       await delay(60 * 1000);
       sendCommand('restart');
     };
     const maintance1Command = async () => {
       sendCommand('tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Maintance work","bold":true,"color":"yellow"},"\\n",{"text":"Server offtime due to maintance work","color":"white"}]')
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
-      sendCommand('playsound minecraft:event.raid.horn master @a ~ ~ ~ 50')
+      sendCommand('execute at @a as @a run playsound minecraft:event.raid.horn master @s ~ ~ ~ 50')
       await delay(60 * 1000);
       sendCommand('stop');
     };
@@ -74,7 +74,7 @@ const Content = () => {
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"5 minutes","color":"green"}]')
       await delay(240 * 1000);
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
-      sendCommand('playsound minecraft:event.raid.horn master @a ~ ~ ~ 50')
+      sendCommand('execute at @a as @a run playsound minecraft:event.raid.horn master @s ~ ~ ~ 50')
       await delay(60 * 1000);
       sendCommand('stop');
     };
@@ -85,7 +85,7 @@ const Content = () => {
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"5 minutes","color":"green"}]')
       await delay(240 * 1000);
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
-      sendCommand('playsound minecraft:event.raid.horn master @a ~ ~ ~ 50')
+      sendCommand('execute at @a as @a run playsound minecraft:event.raid.horn master @s ~ ~ ~ 50')
       await delay(60 * 1000);
       sendCommand('stop');
     };
@@ -96,7 +96,7 @@ const Content = () => {
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"15 minutes","color":"green"}]')
       await delay(840 * 1000);
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
-      sendCommand('playsound minecraft:event.raid.horn master @a ~ ~ ~ 50')
+      sendCommand('execute at @a as @a run playsound minecraft:event.raid.horn master @s ~ ~ ~ 50')
       await delay(60 * 1000);
       sendCommand('stop');
     };
@@ -107,7 +107,7 @@ const Content = () => {
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"30 minutes","color":"green"}]')
       await delay(1740 * 1000);
       sendCommand('tellraw @a ["",{"text":"Server shutdown in ","color":"white"},{"text":"1 minute","color":"green"}]')
-      sendCommand('playsound minecraft:event.raid.horn master @a ~ ~ ~ 50')
+      sendCommand('execute at @a as @a run playsound minecraft:event.raid.horn master @s ~ ~ ~ 50')
       await delay(60 * 1000);
       sendCommand('stop');
     };
