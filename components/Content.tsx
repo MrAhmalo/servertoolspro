@@ -53,7 +53,7 @@ const sendCommand = (action: string, instance : any) => {
   let commandToExecute = '';
   
   if (action === 'wartungsarbeiten') {
-    commandToExecute = 'tellraw @a ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Wartungsarbeiten","bold":true,"color":"yellow"},"\n",{"text":"Server offline für ca. 15-20 minuten","color":"white"}]';
+    commandToExecute = 'tellraw @p ["",{"text":"⚠: ","bold":true,"color":"red"},{"text":"Wartungsarbeiten","bold":true,"color":"yellow"},"\\n",{"text":"Server offline für ca. 15-20 minuten","color":"white"}]';
   } else {
     commandToExecute = action;
   }
