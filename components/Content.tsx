@@ -73,7 +73,7 @@ const renderCommandsPage = (instance : any) => {
   const handleCustomCommandSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (customCommand.trim()) {
-      //sendCommand(customCommand);
+      sendCommand(customCommand, instance);
       closeDialog();
     } else {
       console.warn('Please enter a valid command.');
