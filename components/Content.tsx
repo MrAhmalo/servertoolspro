@@ -95,7 +95,7 @@ const renderCommandsPage = () => {
           Execute your preconfigured commands.
         </Banner>
       </div>
-      <div className="flex flex-row mt-2">
+      <div className="flex flex-row mt-4">
         <Button.Text className="mr-2" onClick={openDialog}>
           <FontAwesomeIcon icon={faPlus} />
         </Button.Text>
