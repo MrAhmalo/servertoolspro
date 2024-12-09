@@ -8,7 +8,6 @@ import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
-import { getCommands, saveCommand } from './database/commandsDB';
 
 function delay(ms : number) {
   return new Promise((resolve) => {
@@ -25,12 +24,6 @@ const Content = () => {
   const [customCommand, setCustomCommand] = useState('');
   const [customCommands, setCustomCommands] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Load commands when component mounts
-  useEffect(() => {
-    const loadedCommands = getCommands();
-    setCustomCommands(loadedCommands);
-  }, []);
 
   // If functions
   // Loading spinner
@@ -62,7 +55,6 @@ const Content = () => {
 
     const handleCustomCommandSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      saveCommand(customCommand);
       setCustomCommands([...customCommands, customCommand]);
       setCustomCommand('');
       closeDialog();
