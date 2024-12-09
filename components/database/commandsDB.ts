@@ -4,7 +4,14 @@ interface CommandDB {
     commands: string[];
 }
 
-// Lade die Commands aus der JSON-Datei
+// Definiere die Standardbefehle direkt im Code
+const customCommands: CommandDB = {
+    commands: [
+        // Hier können wir Standard-Commands definieren
+        // z.B. "say Hello World"
+    ]
+};
+
 let commandsData: CommandDB = customCommands;
 
 export const getCommands = (): string[] => {
