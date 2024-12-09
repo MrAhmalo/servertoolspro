@@ -1,4 +1,7 @@
-import defaultCommands from './commands.json';
+// Definiere die Standardbefehle direkt im Code
+const defaultCommands = {
+    commands: [] as string[]
+};
 
 interface CommandDB {
     commands: string[];
