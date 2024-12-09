@@ -1,14 +1,14 @@
 import React from 'react';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import Content from '@/blueprint/extensions/{identifier}/Content';
 
 const ExampleComponent = () => {
   return (
-    <PageContentBlock title={'Tools'}>
+    <ServerContentBlock title={'Tools'}>
       <>
         <Content/>
       </>
-    </PageContentBlock>
+    </ServerContentBlock>
   );
 };
 
