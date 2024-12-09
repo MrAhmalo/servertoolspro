@@ -26,6 +26,12 @@ const Content = () => {
   const [customCommands, setCustomCommands] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Load commands when component mounts
+  useEffect(() => {
+    const loadedCommands = getCommands();
+    setCustomCommands(loadedCommands);
+  }, []);
+
   // If functions
   // Loading spinner
   useEffect(() => {
@@ -207,11 +213,6 @@ const Content = () => {
         return <div>Select a page</div>;
     }
   };
-
-  useEffect(() => {
-    const loadedCommands = getCommands();
-    setCustomCommands(loadedCommands);
-  }, []);
 
   return (
     <>
