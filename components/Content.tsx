@@ -1,15 +1,13 @@
 import { Button } from '@/components/elements/button/index';
 import { Dialog } from '@/components/elements/dialog/index';
 import { Input } from '@/components/elements/inputs/index';
-import Label from '@/components/elements/Label';
 import Spinner from '@/components/elements/Spinner';
+import Label from '@/components/elements/Label';
 import { ServerContext } from '@/state/server';
 import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
-import { getServerVariable } from './api/getServerVariable';
-import { setServerVariable } from './api/setServerVariable';
 
 function delay(ms : number) {
   return new Promise((resolve) => {
@@ -26,24 +24,6 @@ const Content = () => {
   const [customCommand, setCustomCommand] = useState('');
   const [customCommands, setCustomCommands] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const uuid = ServerContext.useStoreState((state) => state.server.data?.uuid);
-
-  // Load commands when component mounts
-  useEffect(() => {
-    const loadCommands = async () => {
-      if (!uuid) return;
-      try {
-        const response = await getServerVariable(uuid, 'custom_commands');
-        if (response.data) {
-          setCustomCommands(JSON.parse(response.data));
-        }
-      } catch (error) {
-        console.error('Failed to load custom commands:', error);
-      }
-    };
-    
-    loadCommands();
-  }, [uuid]);
 
   // If functions
   // Loading spinner
@@ -73,20 +53,11 @@ const Content = () => {
     const openDialog = () => setShowDialog(true);
     const closeDialog = () => setShowDialog(false);
 
-    const handleCustomCommandSubmit = async (e: React.FormEvent) => {
+    const handleCustomCommandSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      if (!uuid) return;
-      const updatedCommands = [...customCommands, customCommand];
-      
-      try {
-        await setServerVariable(uuid, 'custom_commands', JSON.stringify(updatedCommands));
-        setCustomCommands(updatedCommands);
-        setCustomCommand('');
-        closeDialog();
-      } catch (error) {
-        console.error('Failed to save custom command:', error);
-        // Optionally add error handling UI here
-      }
+      setCustomCommands([...customCommands, customCommand]);
+      setCustomCommand('');
+      closeDialog();
     };
     const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && customCommand.trim().length > 0) {
