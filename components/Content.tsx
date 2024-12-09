@@ -8,6 +8,7 @@ import { faGamepad, faPlus, faTerminal, faUserPlus } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
+import { getCommands, saveCommand } from './database/commandsDB';
 
 function delay(ms : number) {
   return new Promise((resolve) => {
@@ -55,6 +56,7 @@ const Content = () => {
 
     const handleCustomCommandSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      saveCommand(customCommand);
       setCustomCommands([...customCommands, customCommand]);
       setCustomCommand('');
       closeDialog();
@@ -205,6 +207,11 @@ const Content = () => {
         return <div>Select a page</div>;
     }
   };
+
+  useEffect(() => {
+    const loadedCommands = getCommands();
+    setCustomCommands(loadedCommands);
+  }, []);
 
   return (
     <>
